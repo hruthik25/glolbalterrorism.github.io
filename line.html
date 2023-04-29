@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div id="plot"></div>
+    <svg></svg>
+    <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;" >Cases over time</h1>
+    <script>
+
+        // Define the data for the chart
+var data = [  { year: 2010, num_cases: 100 },  { year: 2011, num_cases: 200 },  { year: 2012, num_cases: 300 },  { year: 2013, num_cases: 400 },  { year: 2014, num_cases: 500 },];
+
+// Set the dimensions of the canvas
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// Create the SVG canvas
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Define the scales for the x and y axes
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+// Set the domains for the x and y scales
+x.domain(d3.extent(data, function(d) { return d.year; }));
+y.domain([0, d3.max(data, function(d) { return d.num_cases; })]);
+
+// Define the line function
+var line = d3.line()
+    .x(function(d) { return x(d.year); })
+    .y(function(d) { return y(d.num_cases); });
+
+// Add the line to the canvas
+svg.append("path")
+    .datum(data)
+    .attr("class", "line")
+    .attr("d", line);
+
+// Add the x axis to the canvas
+svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+// Add the y axis to the canvas
+svg.append("g")
+    .call(d3.axisLeft(y));
+
+// Add the chart title
+svg.append("text")
+    .attr("x", (width / 2))
+    .attr("y", 0 - (margin.top / 2))
+    .attr("text-anchor", "middle")
+    .style("font-size", "16px")
+    .text("Cases over Time");
+
+// Add the x axis label
+svg.append("text")
+    .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 10) + ")")
+    .style("text-anchor", "middle")
+    .text("Year");
+
+// Add the y axis label
+svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("Cases");
+
+
+
+
+    
+    </script>
+</body>
+</html>
+

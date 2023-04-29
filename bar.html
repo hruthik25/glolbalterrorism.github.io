@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+    <div id="plot"></div>
+    <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;">Cases per Attack Type
+    </h1>
+    <p>Based on the analysis of Cases per Attack Type, the highest number of cases were reported for the "Bombing/Explosion" attack type with 88,255 cases, followed by "Armed Assault" with 42,669 cases. "Assassination" and "Hostage Taking (Kidnapping)" were the next most common attack types, with 19,312 and 11,158 cases respectively. "Facility/Infrastructure Attack" and "Unknown" were also significant, with 10,356 and 7,276 cases respectively.
+
+        The remaining attack types, "Unarmed Assault", "Hostage Taking (Barricade Incident)", and "Hijacking", had lower reported cases with 1,015, 991, and 659 cases respectively. The bar plot effectively shows the frequency of each attack type and highlights the most common types of attacks.</p>
+    <script>
+        var trace = {
+            x: ['Bombing/Explosion', 'Armed Assault', 'Assassination', 'Hostage Taking (Kidnapping)', 'Facility/Infrastructure Attack', 'Unknown', 'Unarmed Assault', 'Hostage Taking (Barricade Incident)', 'Hijacking'],
+            y: [88255, 42669, 19312, 11158, 10356, 7276, 1015, 991, 659],
+            type: 'bar',
+            marker: {
+                color: [
+                    '#1f77b4',
+                    '#ff7f0e',
+                    '#2ca02c',
+                    '#d62728',
+                    '#9467bd',
+                    '#8c564b',
+                    '#e377c2',
+                    '#7f7f7f',
+                    '#bcbd22'
+                ]
+            }
+        };
+
+        var data = [trace];
+
+        var layout = {
+            //   title: 'Cases per Attack Type',
+            margin: {
+                l: 100,
+                r: 100,
+                b: 150,
+                t: 100
+            },
+            xaxis: { title: 'Attack Type' },
+            yaxis: { title: 'Number of Cases' },
+            height: 600,
+            width: 800
+        };
+
+        Plotly.newPlot('plot', data, layout);
+
+    </script>
+</body>
+
+</html>

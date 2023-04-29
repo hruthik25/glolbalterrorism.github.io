@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id='plot'></div>
+  <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;">Terrorist Groups with Highest Terror Attacks</h1>
+  <p>Based on the provided data, we have created a horizontal bar plot showing the terrorist groups with the highest number of terrorist attacks. The Communist Party of India - Maoist (CPI-Maoist) had the lowest number of attacks at 1878, while the Taliban had the highest number of attacks at 7478. The plot provides a quick and easy way to compare the number of attacks for each group and identify the groups with the highest number of attacks. The horizontal orientation of the plot allows for longer group names to be displayed without overlapping and provides a clear view of the data. Overall, the plot effectively communicates the information in a visually appealing and easy-to-understand format.</p>
+  <script>
+    var trace = {
+      x: [1878, 2024, 2310, 2418, 2487, 2671, 2772, 3288, 3351, 4555, 5613, 7478],
+      y: ['Communist Party of India - Maoist (CPI-Maoist)', 'Basque Fatherland and Freedom (ETA)', 'Kurdistan Workers\' Party (PKK)', 'Boko Haram', 'Revolutionary Armed Forces of Colombia (FARC)', 'Irish Republican Army (IRA)', 'New People\'s Army (NPA)', 'Al-Shabaab', 'Farabundo Marti National Liberation Front (FMLN)', 'Shining Path (SL)', 'Islamic State of Iraq and the Levant (ISIL)', 'Taliban'],
+      type: 'bar',
+      orientation: 'h',
+      marker: {
+        color: ['rgb(31, 119, 180)', 'rgb(46, 137, 205)', 'rgb(63, 156, 231)', 'rgb(80, 175, 255)', 'rgb(97, 194, 255)', 'rgb(114, 213, 255)', 'rgb(131, 232, 255)', 'rgb(148, 251, 255)', 'rgb(165, 255, 231)', 'rgb(182, 255, 206)', 'rgb(199, 255, 181)', 'rgb(216, 255, 156)'],
+        opacity: 0.7,
+        line: {
+          color: 'rgb(8,48,107)',
+          width: 1.5
+        }
+      }
+    };
+    
+    var layout = {
+      xaxis: {
+        title: 'Number of attacks'
+      },
+      margin: {
+        l: 350,
+        r: 50,
+        t: 50,
+        b: 50
+      }
+    };
+    
+    var data = [trace];
+    Plotly.newPlot('plot', data, layout);
+  </script>
+</body>
+</html>

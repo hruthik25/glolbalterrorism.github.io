@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Choropleth Map</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <div id="myDiv" style="width:100%; height:500px;"></div>
+    <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;" >Geospatial Visualization of Number of Cases by Country</h1>
+    <p>Based on the geospatial visualization of the number of cases by country, the analysis indicates that Iraq has the highest number of cases with 24,636, followed by Pakistan with 14,368 and Afghanistan with 12,731. India has 11,960 cases, while Colombia has 8,306 and the Philippines have 6,908 cases.
+
+      The countries with the lowest number of cases include Andorra, Falkland Islands, Wallis and Futuna, Vatican City, and Antigua and Barbuda, each with only one reported case. International has only one reported case as well, although it is not a country.
+      
+      Overall, the distribution of cases appears to be concentrated in certain regions of the world, particularly in Asia and South America. Iraq, Pakistan, and Afghanistan, for example, are all located in Asia, while Colombia and the Philippines are located in South America.
+      
+      It is important to note that this analysis is based on a single snapshot of data and does not take into account other factors that could impact the number of reported cases, such as differences in testing and reporting protocols across countries. It is also important to continue monitoring the situation and to take necessary precautions to prevent the spread of the disease.</p>
+    <script>
+      // Load the data
+      var dataUrl = 'cases_by_country.csv';
+      Plotly.d3.csv(dataUrl, function(data) {
+
+        // Define the layout
+        var layout = {
+          // title: 'Number of  Cases by Country',
+          geo: {
+            scope: 'world',
+            projection: {
+              type: 'natural earth'
+            }
+          }
+        };
+
+        // Set up the color scale
+        var colorScale = [  [0, '#fff5f0'],
+                          [0.2, '#fee0d2'],
+                          [0.4, '#fc9272'],
+                          [0.6, '#fb6a4a'],
+                          [0.8, '#de2d26'],
+                          [1, '#a50f15']
+                        ];
+
+        // Define the data
+        var data = [{
+          type: 'choropleth',
+          locationmode: 'country names',
+          locations: data.map(function(d) { return d['country']; }),
+          z: data.map(function(d) { return d['Number of Cases']; }),
+          colorscale: colorScale,
+          colorbar: {
+            title: 'Number of Cases'
+          }
+        }];
+
+        // Plot the chart
+        Plotly.newPlot('myDiv', data, layout);
+      });
+    </script>
+  </body>
+</html>

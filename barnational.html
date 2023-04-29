@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <!-- <nav>
+    <ul>
+        <li><a href="bar.html" class="nav-link">Bar</a></li>
+        <li><a href="barnational.html" class="nav-link">Barnational</a></li>
+        <li><a href="bartarget.html" class="nav-link">Bar target</a></li>
+        <li><a href="geo.html" class="nav-link">Geo</a></li>
+        <li><a href="pie.html" class="nav-link">Pie</a></li>
+        <li><a href="year.html" class="nav-link">Year</a></li>
+    </ul>
+</nav> -->
+
+<div id="chart"></div>
+<h1 style="text-align: center; display: flex; justify-content: center; align-items: center;" >Number of cases by nationality</h1>
+<script>
+
+// Load data from CSV file
+Plotly.d3.csv('cases_per_nationality.csv', function(err, data) {
+  if (err) throw err;
+
+  // Group data by nationality and sum the number of cases
+  var groups = Plotly.d3.nest()
+    .key(function(d) { return d.nationality; })
+    .rollup(function(v) { return Plotly.d3.sum(v, function(d) { return d["Number of Cases"]; }); })
+    .entries(data);
+
+  // Sort the groups by descending order of total cases
+  groups.sort(function(a, b) { return b.value - a.value; });
+
+  // Extract the nationality and case count from the groups
+  var x = groups.map(function(d) { return d.key; });
+  var y = groups.map(function(d) { return d.value; });
+
+  // Create a bar chart using Plotly
+  var trace = {
+    x: x,
+    y: y,
+    type: 'bar'
+  };
+
+  var layout = {
+    title: 'Number of cases by nationality',
+    xaxis: { title: 'Nationality' },
+    yaxis: { title: 'Number of cases' }
+  };
+
+  Plotly.newPlot('chart', [trace], layout);
+});
+</script>
+
+</body>
+</html>

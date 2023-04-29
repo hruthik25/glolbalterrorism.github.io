@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number of cases per target type</title>
+	<link rel="stylesheet" href="style.css">
+	<!-- Load Plotly.js -->
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+	<div id="plot"></div>
+	<h1 style="text-align: center; display: flex; justify-content: center; align-items: center;" >Number of cases per target type</h1>
+	<p>Based on the provided data, the analysis shows that the most common target types for terrorist attacks are Private Citizens & Property, Military, Police, and Government (General). Business and Transportation are also frequent targets. Utilities, Religious Figures/Institutions, and Educational Institutions are targeted less frequently, but still significant numbers of attacks are recorded against them. The data also shows that there are several target types that are rarely attacked by terrorists, including NGOs, Tourists, and Maritime targets. Abortion Related and Other targets are also among the least targeted. Overall, the analysis provides useful insights into the patterns of terrorist attacks on various target types, which can inform strategies for prevention and response.</p>
+	<script>
+		// Data
+		var data = [{
+			x: ['Private Citizens & Property', 'Military', 'Police', 'Government (General)', 'Business', 'Transportation', 'Utilities', 'Unknown', 'Religious Figures/Institutions', 'Educational Institution', 'Government (Diplomatic)', 'Terrorists/Non-State Militia', 'Journalists & Media', 'Violent Political Party', 'Airports & Aircraft', 'Telecommunication', 'NGO', 'Tourists', 'Maritime', 'Food or Water Supply', 'Abortion Related', 'Other'],
+			y: [43511, 27984, 24506, 21283, 20669, 6799, 6023, 5898, 4440, 4322, 3573, 3039, 2948, 1866, 1343, 1009, 970, 440, 351, 317, 263, 137],
+			type: 'bar',
+			marker: {
+				color: [
+					'#1f77b4', // blue
+					'#ff7f0e', // orange
+					'#2ca02c', // green
+					'#d62728', // red
+					'#9467bd', // purple
+					'#8c564b', // brown
+					'#e377c2', // pink
+					'#7f7f7f', // gray
+					'#bcbd22', // lime
+					'#17becf', // turquoise
+					'#7e0808', // dark red
+					'#dbb14c', // mustard
+					'#7470b4', // lavender
+					'#8d90a1', // gray blue
+					'#17becf', // turquoise
+					'#2ca02c', // green
+					'#ffbb78', // peach
+					'#98df8a', // light green
+					'#9467bd', // purple
+					'#d62728', // red
+					'#c5b0d5'  // light purple
+				]
+			}
+		}];
+
+		// Layout
+		var layout = {
+			// title: 'Number of cases per target type',
+			xaxis: {
+				title: 'Target type'
+			},
+			yaxis: {
+				title: 'Number of cases'
+			},
+			margin: {
+				l: 60,
+				r: 20,
+				t: 50,
+				b: 200
+			}
+		};
+
+		// Plot
+		Plotly.newPlot('plot', data, layout);
+	</script>
+</body>
+</html>

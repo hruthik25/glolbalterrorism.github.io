@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <!-- <nav>
+      <ul>
+          <li><a href="bar.html" class="nav-link">Bar</a></li>
+          <li><a href="barnational.html" class="nav-link">Barnational</a></li>
+          <li><a href="bartarget.html" class="nav-link">Bar target</a></li>
+          <li><a href="geo.html" class="nav-link">Geo</a></li>
+          <li><a href="pie.html" class="nav-link">Pie</a></li>
+          <li><a href="year.html" class="nav-link">Year</a></li>
+      </ul>
+  </nav> -->
+    <div id="myDiv" style="width: 100%; height: 800px;"></div>
+    <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;" >Pie Chart Weapon type cases</h1>
+    <p>From the analysis of weapon types used in terrorist attacks, it can be observed that explosives and firearms are the two most commonly used types of weapons, with 92426 and 58524 cases respectively. This is followed by unknown weapon types, which accounted for 15157 cases. Incendiary and melee weapons were used in 11135 and 3655 cases respectively. The remaining weapon types, including chemical, sabotage equipment, vehicles (not to include vehicle-borne explosives), other, biological, fake weapons, and radiological, accounted for a small number of cases each. The pie chart shows that explosives were used in the highest number of cases, making up approximately 53% of all weapon types used in terrorist attacks. Firearms were the second most commonly used weapon type, accounting for approximately 33% of cases. The remaining weapon types accounted for a relatively small proportion of cases each. It is evident that terrorists often resort to using explosives and firearms as their primary means of carrying out attacks, and these types of weapons should be a major concern for counterterrorism efforts.</p>
+    <script>
+      var cases_group_by_weapon_type_df = {
+        "weapon_type": [
+          "Explosives",
+          "Firearms",
+          "Unknown",
+          "Incendiary",
+          "Melee",
+          "Chemical",
+          "Sabotage Equipment",
+          "Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",
+          "Other",
+          "Biological",
+          "Fake Weapons",
+          "Radiological"
+        ],
+        "Number of Cases": [
+          92426,
+          58524,
+          15157,
+          11135,
+          3655,
+          321,
+          141,
+          136,
+          114,
+          35,
+          33,
+          14
+        ]
+      };
+      
+      // Create the pie trace
+      var trace = {
+        labels: cases_group_by_weapon_type_df["weapon_type"],
+        values: cases_group_by_weapon_type_df["Number of Cases"],
+        type: 'pie',
+        marker: {
+          colors: ['#EF476F', '#FFD166', '#06D6A0', '#118AB2', '#073B4C', '#FF9F1C', '#FF9F1C', '#FF9F1C', '#FF9F1C', '#FF9F1C', '#FF9F1C', '#FF9F1C']
+        }
+      };
+
+      // Create the layout
+      var layout = {
+        // title: 'Pie Chart Weapon type cases',
+        margin: {
+				l: 60,
+				r: 20,
+				t: 50,
+				b: 200
+			}
+      };
+
+      // Create the data array
+      var data = [trace];
+
+      // Create the figure
+      Plotly.newPlot('myDiv', data, layout);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Choropleth Map</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #buttons {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #d1d1d1;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+
+    <div id="myDiv" style="width:100%; height:500px;"></div>
+    <div id="buttons">
+        <button id="button1">Attacks by ISI</button>
+        <button id="button2">Attacks by Taliban</button>
+    </div>
+    <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;">Geospatial
+        Visualization of ISI and Talibans</h1>
+        <p>Based on the analysis, it appears that the majority of cases related to the ISI and Talibans have occurred in Iraq, with a total of 4797 cases. This is followed by Syria, with 594 cases, and Turkey, with 82 cases. The remaining countries have had relatively few cases, with only a handful of incidents reported in each. The geospatial visualization provides a clear picture of the geographic distribution of these incidents, allowing for a better understanding of the patterns and trends in this type of activity. The use of two buttons to switch between ISI and Taliban data provides an easy and intuitive way for users to explore the data and compare the activities of these two groups across different regions. Overall, this analysis provides valuable insights into the activities of these two groups and their impact on global security.</p>
+    <script>
+        window.addEventListener('load', function () {
+            button1.click();
+        });
+
+
+        const button1 = document.getElementById("button1");
+        const button2 = document.getElementById("button2");
+
+        button1.addEventListener("click", () => {
+            // Code to update the map with data for button 1
+            // Load the data
+            var dataUrl = 'cases_by_isis_df.csv';
+            Plotly.d3.csv(dataUrl, function (data) {
+
+                // Define the layout
+                var layout = {
+                    //   title: 'Number of  Cases by Country',
+                    geo: {
+                        scope: 'world',
+                        projection: {
+                            type: 'natural earth'
+                        }
+                    }
+                };
+
+                // Set up the color scale
+                var colorScale = [[0, '#f7fbff'],
+                [0.2, '#deebf7'],
+                [0.4, '#c6dbef'],
+                [0.6, '#9ecae1'],
+                [0.8, '#6baed6'],
+                [1, '#3182bd']
+                ];
+
+
+                // Define the data
+                var data = [{
+                    type: 'choropleth',
+                    locationmode: 'country names',
+                    locations: data.map(function (d) { return d['country']; }),
+                    z: data.map(function (d) { return d['Number of Cases']; }),
+                    colorscale: colorScale,
+                    colorbar: {
+                        title: 'Number of Cases'
+                    }
+                }];
+
+                // Plot the chart
+                Plotly.newPlot('myDiv', data, layout);
+            });
+        });
+
+        button2.addEventListener("click", () => {
+            // Code to update the map with data for button 2
+            // Load the data
+            var dataUrl = 'cases_by_Taliban_df.csv';
+            Plotly.d3.csv(dataUrl, function (data) {
+
+                // Define the layout
+                var layout = {
+                    //   title: 'Number of  Cases by Country',
+                    geo: {
+                        scope: 'world',
+                        projection: {
+                            type: 'natural earth'
+                        }
+                    }
+                };
+
+                // Set up the color scale
+                var colorScale = [[0, '#f7fbff'],
+                [0.2, '#deebf7'],
+                [0.4, '#c6dbef'],
+                [0.6, '#9ecae1'],
+                [0.8, '#6baed6'],
+                [1, '#3182bd']
+                ];
+
+
+                // Define the data
+                var data = [{
+                    type: 'choropleth',
+                    locationmode: 'country names',
+                    locations: data.map(function (d) { return d['country']; }),
+                    z: data.map(function (d) { return d['Number of Cases']; }),
+                    colorscale: colorScale,
+                    colorbar: {
+                        title: 'Number of Cases'
+                    }
+                }];
+
+                // Plot the chart
+                Plotly.newPlot('myDiv', data, layout);
+            });
+        });
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Line Chart</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <div id="myDiv" style="width: 100%; height: 500px;"></div>
+    <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;" >Cases over Time</h1>
+    <p>Based on the data presented in the timeline chart, it is evident that there has been a varying number of incidents across different categories of violence over the years. From the chart, it can be seen that the number of explosions has been consistently high, with a peak in 2014, and has been on the decline since then. Armed assault incidents have also been on the rise, reaching a peak in 2016, after which it has been decreasing. Assassination incidents have been relatively stable over the years, with a slight increase in the mid-1990s and a sharp drop in the late 1990s.
+
+      Kidnapping incidents have fluctuated over the years, with the highest number of incidents recorded in 2015. Facility attacks have also fluctuated, with a peak in 2014 and a decline since then. Unarmed assault incidents have been relatively low over the years, with a peak in 2017. The number of unknown incidents has fluctuated but has been on the decline since 2015.
+      
+      Barricade incidents have been sporadic over the years, with a peak in 1996. Hijacking incidents have been relatively low over the years, with a peak in 1995.
+      
+      Overall, the data presented in the timeline chart shows that incidents of violence have varied over the years across different categories, with some categories experiencing peaks and others remaining stable. It is important to note that this data only covers reported incidents, and there may be unreported incidents that have not been captured.</p>
+    <script>
+        var url = 'cases_by_year_df.csv';
+      // Load CSV data
+      Plotly.d3.csv(url, function(err, rows){
+        var year = [], explosion = [], armedAssault = [], assassination = [], kidnapping = [], facilityAttack = [], unarmedAssault = [], unknown = [], barricadeIncident = [], hijacking = [];
+
+        for (var i = 0; i < rows.length; i++) {
+          year.push(rows[i].year);
+          explosion.push(parseInt(rows[i].Explosion));
+          armedAssault.push(parseInt(rows[i].Armed_Assault));
+          assassination.push(parseInt(rows[i].Assassination));
+          kidnapping.push(parseInt(rows[i].Kidnapping));
+          facilityAttack.push(parseInt(rows[i].Facility_Attack));
+          unarmedAssault.push(parseInt(rows[i].Unarmed_Assault));
+          unknown.push(parseInt(rows[i].Unknown));
+          barricadeIncident.push(parseInt(rows[i].Barricade_Incident));
+          hijacking.push(parseInt(rows[i].Hijacking));
+        }
+
+        // Create data trace
+        var data = [
+          {x: year, y: explosion, type: 'scatter', name: 'Explosion'},
+          {x: year, y: armedAssault, type: 'scatter', name: 'Armed Assault'},
+          {x: year, y: assassination, type: 'scatter', name: 'Assassination'},
+          {x: year, y: kidnapping, type: 'scatter', name: 'Kidnapping'},
+          {x: year, y: facilityAttack, type: 'scatter', name: 'Facility Attack'},
+          {x: year, y: unarmedAssault, type: 'scatter', name: 'Unarmed Assault'},
+          {x: year, y: unknown, type: 'scatter', name: 'Unknown'},
+          {x: year, y: barricadeIncident, type: 'scatter', name: 'Barricade Incident'},
+          {x: year, y: hijacking, type: 'scatter', name: 'Hijacking'}
+        ];
+
+        // Set layout
+        var layout = {
+          // title: 'Cases over Time',
+          xaxis: {title: 'Year'},
+          yaxis: {title: 'Cases'}
+        };
+
+        // Render plot
+        Plotly.newPlot('myDiv', data, layout);
+      });
+    </script>
+  </body>
+</html>

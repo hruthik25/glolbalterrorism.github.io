@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bar Chart with Subplots</title>
+  <!-- Include Plotly.js library -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id="plot" style="width: 100%; height: 600px;"></div>
+  <h1 style="text-align: center; display: flex; justify-content: center; align-items: center;" >Group-wise Attack Data</h1>
+  <p>Based on the given data, we analyzed the number of cases, success, and success rate for various terrorist groups. We created a double bar plot to visualize this data, where one bar represents the number of cases, and the other bar represents the success rate. From the plot, we can see that the Taliban has the highest number of cases, followed by the Islamic State of Iraq and the Levant (ISIL) and the Shining Path (SL). However, the success rate of these groups varies, with the Shining Path having the highest success rate of over 95%, while the Taliban has a success rate of around 89%. We also observe that most of the groups have a high success rate, with only a few groups having a success rate below 90%. The Farabundo Marti National Liberation Front (FMLN) has the highest success rate of 98.99%, while the Basque Fatherland and Freedom (ETA) has the lowest success rate of 85.03%. Overall, the double bar plot provides a clear visual representation of the number of cases and success rate for various terrorist groups, allowing for easy comparison and analysis of the data.</p>
+  <script>
+    // Retrieve the dataset (group_atk.csv) as a CSV file
+    Plotly.d3.csv('group_atk.csv', (err, data) => {
+      if (err) throw err;
+
+      // Extract data for each subplot
+      const all_atk = {
+        x: data.map(row => row.gname),
+        y: data.map(row => row['Number of Cases']),
+        name: 'Total Cases',
+        type: 'bar',
+      };
+      const success = {
+        x: data.map(row => row.gname),
+        y: data.map(row => row.success),
+        name: 'Success',
+        type: 'bar',
+      };
+      const line_success_rate = {
+        x: data.map(row => row.gname),
+        y: data.map(row => row.success_rate),
+        name: 'Success Rate',
+        mode: 'lines',
+        yaxis: 'y2',
+        type: 'scatter',
+      };
+
+      // Create the subplot
+      const fig = {
+        data: [all_atk, success, line_success_rate],
+        layout: {
+          title: 'Group-wise Attack Data',
+          barmode: 'group',
+          xaxis: { title: 'Group Name' },
+          yaxis: { title: 'Number of Cases' },
+          yaxis2: {
+            title: 'Success Rate (%)',
+            overlaying: 'y',
+            side: 'right',
+            range: [0, 100],
+          },
+          margin: {
+            l: 50,
+            r: 30,
+            t: 100,
+            b: 200,
+          },
+        },
+      };
+
+      // Plot the chart
+      Plotly.newPlot('plot', fig);
+    });
+  </script>
+</body>
+</html>
